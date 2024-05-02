@@ -8,5 +8,7 @@ import guru.springframework.spring5webapp.web.model.BeerDto;
 public interface BeerService {
   BeerDto getId(UUID beerId);
   BeerDto create(BeerDto beerDto);
+  BeerDto update(UUID id, BeerDto beerDto);
+  BeerDto delete(UUID id);
 
 } 

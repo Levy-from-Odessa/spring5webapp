@@ -24,5 +24,17 @@ public class BeerServiceImpl implements BeerService{
       .build();
   }
 
+  @Override
+  public BeerDto update(UUID id, BeerDto beerDto) {
+    return BeerDto.builder().id(UUID.randomUUID())
+      .build();
+  }
+
+  @Override
+  public BeerDto delete(UUID id) {
+    return BeerDto.builder().id(UUID.randomUUID())
+      .build();
+  }
+
   
 }
