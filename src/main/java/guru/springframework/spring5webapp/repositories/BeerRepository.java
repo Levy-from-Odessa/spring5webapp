@@ -2,10 +2,13 @@ package guru.springframework.spring5webapp.repositories;
 
 import java.util.UUID;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import guru.springframework.spring5webapp.domain.Beer;
 
-public interface BeerRepository extends CrudRepository<Beer, UUID>{
+public interface BeerRepository extends PagingAndSortingRepository<Beer, UUID>{
   
+  
+  
+
 }
