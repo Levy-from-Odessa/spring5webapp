@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import guru.springframework.spring5webapp.web.model.BeerDto;
+import guru.springframework.spring5webapp.web.model.BeerStyleEnu;
 
 @Service
 public class BeerServiceImpl implements BeerService{
@@ -13,7 +14,7 @@ public class BeerServiceImpl implements BeerService{
   public BeerDto getId(UUID beerId) {
     return BeerDto.builder().id(UUID.randomUUID())
         .beerName("Galaxy Cat")
-        .beerStyle("Pale Ale")
+        .beerStyle(BeerStyleEnu.ALE)
         .upc(337010000000L)
         .build();
   }
