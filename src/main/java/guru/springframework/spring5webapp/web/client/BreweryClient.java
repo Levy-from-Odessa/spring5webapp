@@ -17,7 +17,7 @@ public class BreweryClient {
   private String apihost;
 
   private final String BEER_PATH_V1 = "/api/v1/beer/";
-  private final String CUSTOMER_PATH_V1 = "/api/v1/beer/";
+  private final String CUSTOMER_PATH_V1 = "/api/v1/customer/";
 
   private final RestTemplate restTemplate;
 

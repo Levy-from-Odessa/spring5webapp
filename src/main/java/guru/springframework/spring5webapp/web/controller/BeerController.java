@@ -1,6 +1,9 @@
 package guru.springframework.spring5webapp.web.controller;
 
 import java.util.UUID;
+import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,41 +23,46 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 
 
-@RequestMapping("/api/v1/beer")
 @RestController
 public class BeerController {
+
+  public static final String BEER_PATH = "api/v1/beer";
+  public static final String BEER_PATH_ID = BEER_PATH + "/{beerId}";
 
   private final BeerService beerService;
 
   public BeerController(BeerService beerService) {
     this.beerService = beerService;
   }
+  @GetMapping(BEER_PATH)
+  public ResponseEntity<List<BeerDto>> getBeer() {
+    return new ResponseEntity<>(beerService.getAll(), HttpStatus.OK);
+  }
   
-  @GetMapping("/{beerId}")
+  @GetMapping(BEER_PATH_ID)
   public ResponseEntity<BeerDto> getBeerById(@PathVariable("beerId") UUID beerId) {
     return new ResponseEntity<>(beerService.getId(beerId), HttpStatus.OK);
   }
 
 
-  @PostMapping
-  public ResponseEntity<BeerDto> handlePost(@RequestBody BeerDto beerDto) {
-    BeerDto created = beerService.create(beerDto);
+  @PostMapping(BEER_PATH)
+  public ResponseEntity<BeerDto> handlePost(@Valid @RequestBody BeerDto beerDto) {
+    BeerDto savedBeer = beerService.create(beerDto);
 
     HttpHeaders headers = new HttpHeaders();
-    // todo: add hostname to url
-    headers.add("Location", "/api/v1/beer/" + created.getId().toString());
+    headers.add("Location", BEER_PATH + "/" + savedBeer.getId().toString());
 
-    return new ResponseEntity<>(headers, HttpStatus.CREATED);
+    return new ResponseEntity<BeerDto>(headers, HttpStatus.CREATED);
   }
 
-  @PutMapping("/{beerId}")
-  public ResponseEntity<String> handleUpdate(@PathVariable("beerId") UUID beerId, @RequestBody BeerDto beerDto) {
+  @PutMapping(BEER_PATH_ID)
+  public ResponseEntity<String> handleUpdate(@PathVariable("beerId") UUID beerId, @Valid @RequestBody BeerDto beerDto) {
     BeerDto updatedBeer = beerService.update(beerId, beerDto);
 
     return new ResponseEntity<String>(updatedBeer.getId().toString(), HttpStatus.NO_CONTENT);
   }
 
-  @DeleteMapping("/{beerId}")
+  @DeleteMapping(BEER_PATH_ID)
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void handleDelete(@PathVariable("beerId") UUID beerId) {
     // beerService.delete(beerId);

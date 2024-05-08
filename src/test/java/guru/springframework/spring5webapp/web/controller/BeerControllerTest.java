@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import guru.springframework.spring5webapp.service.BeerService;
 import guru.springframework.spring5webapp.web.model.BeerDto;
+import guru.springframework.spring5webapp.web.model.BeerStyleEnu;
 
 @WebMvcTest(BeerController.class)
 public class BeerControllerTest {
@@ -47,11 +48,17 @@ public class BeerControllerTest {
 
   @Test
   void testHandlePost() throws Exception {
-    BeerDto mockReturn =BeerDto.builder().id(UUID.randomUUID()).build();
+
+    BeerDto beerDto = BeerDto.builder()
+      .id(UUID.randomUUID())
+      .beerName("test")
+      .beerStyle(BeerStyleEnu.ALE)
+      .upc(123456789012L)
+      .build();
 
     Mockito.when(beerService.create(any(BeerDto.class)))
-      .thenReturn(mockReturn);
-    BeerDto beerDto = BeerDto.builder().build();
+      .thenReturn(beerDto);
+
     String beerDtoJson = objectMapper.writeValueAsString(beerDto);
 
     mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/beer")
@@ -65,13 +72,16 @@ public class BeerControllerTest {
   @Test
   void testHandleUpdate() throws Exception {
     UUID id = UUID.randomUUID();
-
-    BeerDto mockReturn = BeerDto.builder().id(id).build();
+    BeerDto beerDto = BeerDto.builder()
+      .id(id)
+      .beerName("test")
+      .beerStyle(BeerStyleEnu.ALE)
+      // .upc(123456789012L)
+      .build();
 
     Mockito.when(beerService.update(any(UUID.class), any(BeerDto.class)))
-      .thenReturn(mockReturn);
+      .thenReturn(beerDto);
 
-    BeerDto beerDto = BeerDto.builder().build();
     String beerDtoJson = objectMapper.writeValueAsString(beerDto);
 
     mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/beer" + '/' + id.toString())
