@@ -1,4 +1,4 @@
-package guru.springframework.spring5webapp.domain;
+package guru.springframework.spring5webapp.web.model;
 
 import java.util.UUID;
 
@@ -12,7 +12,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import guru.springframework.spring5webapp.web.model.BeerStyleEnu;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,6 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.math.BigDecimal;
 
 @Setter
@@ -51,7 +53,11 @@ public class Beer {
   private Long upc;
   private BigDecimal price;
 
+  private Integer quantityOnHand;
   private Integer minOnHand;
   private Integer quantityToBrew; 
 
+
+  @JsonSerialize(using = LocalDateSerializer.class)
+  private LocalDate myLocalDate;
 }

@@ -8,11 +8,17 @@ import guru.springframework.spring5webapp.service.CustomerService;
 import guru.springframework.spring5webapp.web.model.CustomerDto;
 
 import java.util.UUID;
+import java.util.List;
+import java.util.ArrayList;
+
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,7 +41,7 @@ public class CustomerController {
   }
 
   @PostMapping
-  public ResponseEntity<CustomerDto> handlePost(@RequestBody CustomerDto CustomerDto) {
+  public ResponseEntity<CustomerDto> handlePost(@Valid @RequestBody CustomerDto CustomerDto) {
     CustomerDto created = customerService.create(CustomerDto);
 
     HttpHeaders headers = new HttpHeaders();
@@ -46,7 +52,7 @@ public class CustomerController {
   }
 
   @PutMapping("/{CustomerId}")
-  public ResponseEntity<CustomerDto> handleUpdate(@PathVariable("CustomerId") UUID CustomerId, @RequestBody CustomerDto CustomerDto) {
+  public ResponseEntity<CustomerDto> handleUpdate(@PathVariable("CustomerId") UUID CustomerId, @Valid @RequestBody CustomerDto CustomerDto) {
     customerService.update(CustomerId, CustomerDto);
 
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -59,5 +65,5 @@ public class CustomerController {
   }
   
 
-  
+
 }

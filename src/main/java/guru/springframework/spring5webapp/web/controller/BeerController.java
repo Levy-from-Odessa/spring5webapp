@@ -2,13 +2,16 @@ package guru.springframework.spring5webapp.web.controller;
 
 import java.util.UUID;
 import java.util.List;
+import java.util.ArrayList;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,5 +70,5 @@ public class BeerController {
   public void handleDelete(@PathVariable("beerId") UUID beerId) {
     // beerService.delete(beerId);
   }
-  
+
 }

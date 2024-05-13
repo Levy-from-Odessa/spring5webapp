@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import guru.springframework.spring5webapp.domain.Beer;
 import guru.springframework.spring5webapp.repositories.BeerRepository;
+import guru.springframework.spring5webapp.web.model.Beer;
 import guru.springframework.spring5webapp.web.model.BeerStyleEnu;
 
 @Component
